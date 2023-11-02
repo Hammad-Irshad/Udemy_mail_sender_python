@@ -31,6 +31,7 @@ if __name__ == "__main__":
 
         while True:
             main()
+            print("code running")  # Added this line to indicate code is running
             time.sleep(60 * 15)  # Send email every 15 minutes
     except Exception as e:
         print(e)
