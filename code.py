@@ -1,6 +1,14 @@
 import subprocess
 import time
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
+class handler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type','text/plain')
+        self.end_headers()
+        self.wfile.write('Hello, world!'.encode('utf-8'))
 
 def execute_python_script():
     try:
@@ -33,5 +41,10 @@ if __name__ == "__main__":
             main()
             print("code running")  # Added this line to indicate code is running
             time.sleep(60 * 15)  # Send email every 15 minutes
+
+            # Start the HTTP server
+            server = HTTPServer(('localhost', 8000), handler)
+            print('Started HTTP server')
+            server.serve_forever()
     except Exception as e:
         print(e)
